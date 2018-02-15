@@ -1,18 +1,28 @@
+var posts = [];
+var elementiPerPagina = 10;
+var pagina = 0;
+var templPost = '';
+var templCommento = '';
+
 // on document ready
 $(function() {  // closure
+    caricaPosts();
     // punto 1.
     $.ajax({
         url: 'rigaPost.html',
         method: 'get'
     })
-    .done(function(templPost) {
+    .done(function(respHtmlPost) {
+        templPost = respHtmlPost;
         // punto 2
         $.ajax({
             url: 'commentoPost.html',
             method: 'get'
         })
-        .done(function(templCommento){
-            generaTuttiPost(templPost, templCommento);
+        .done(function(respHtmlCommento){
+            templCommento = respHtmlCommento;
+            generaTuttiILinkDiPaginazione();
+            generaTuttiPost();
         });
     });
     $( "#postsContainer" ).on("click", "span.not-starred", function() {
@@ -21,26 +31,57 @@ $(function() {  // closure
     $( "#postsContainer" ).on("click", "span.starred", function() {
         rimuoviBookmark( $( this ) );
     });
+    $('#paginazione-posts').on('click', '.page-link', function() {
+        cambiaPagina($(this));
+    });
     console.log('finito');
 });
 
-/* giorno 1 */
-function generaTuttiPost(templPost, templCommento) {
-   // punto 3.
-   $.ajax({
+function caricaPosts() {
+    $.ajax({
         url: 'https://jsonplaceholder.typicode.com/posts',
         method: 'get'
     })
     .done(function(listaPosts) {
-        //console.log(listaPosts);
-        $.each(listaPosts, function(ixPost, post) {
-            //console.log(post);
-            generaSingoloPost(post, templPost, templCommento);
-        });
+        posts = listaPosts;
     }); 
 }
 
-function generaSingoloPost(post, templPost, templCommento) {
+/* giorno 1 */
+function generaTuttiPost() {
+    // punto 3.
+    $('#postsContainer').empty();
+    var inizio = pagina * elementiPerPagina;
+    var fine = inizio + elementiPerPagina;
+    $.each(posts.slice(inizio, fine), function(ixPost, post) {
+        //console.log(post);
+        generaSingoloPost(post);
+    });
+}
+
+function generaTuttiILinkDiPaginazione() {
+    $('#paginazione-posts').empty();
+    $('#paginazione-posts').append(
+        '<li class="page-item"><a class="page-link" href="#" data-numpagina="' 
+        + (pagina - 1) + '">Precedente</a></li>'
+    );
+    for(i = pagina - 3; i <= pagina + 3; i++) {
+        var li = '<li class="page-item' + (i == pagina ? ' active' : '') + '"><a class="page-link" href="#" data-numpagina="' + i + '">' 
+        + (i + 1) + '</a></li>';
+        $('#paginazione-posts').append(li);
+    }
+    $('#paginazione-posts').append(
+        '<li class="page-item"><a class="page-link" href="#" data-numpagina="' 
+        + (pagina + 1) + '">Prossima</a></li>');
+}
+
+function cambiaPagina(pageLinkElement) {
+    pagina = new Number(pageLinkElement.data('numpagina'));
+    generaTuttiILinkDiPaginazione();
+    generaTuttiPost();
+}
+
+function generaSingoloPost(post) {
    // punto 3.1   
     $('#postsContainer').append(
         templPost
@@ -48,7 +89,7 @@ function generaSingoloPost(post, templPost, templCommento) {
             .replace(/{{post.body}}/g, post.body)
             .replace(/{{post.id}}/g, post.id)
     );
-    commentiDelPost(post.id, templCommento);
+    commentiDelPost(post.id);
     impostaAutoreDelPost(post);
 
     var arr = caricaBookmarks();
@@ -73,7 +114,7 @@ function impostaAutoreDelPost(post) {
     });
 }
 
-function commentiDelPost(postId, templCommento) {
+function commentiDelPost(postId) {
    // punto 3.2
    $.ajax({
     url: 'https://jsonplaceholder.typicode.com/comments?postId=' + postId,
