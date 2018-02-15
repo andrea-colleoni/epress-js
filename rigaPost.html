@@ -2,11 +2,14 @@
     <div class="card col-lg-12" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">
-                    <span class="oi oi-star not-starred"></span>
+                    <span class="oi oi-star not-starred" data-postid="{{post.id}}"></span>
                     {{post.title}}
             </h5>
             <p class="card-text">{{post.body}}</p>
-            <a href="#" class="btn" id="autore-{{post.id}}"><span class="oi oi-person"></span></a>
+            <a href="#" class="btn" id="autore-{{post.id}}">
+                <span class="oi oi-person"></span>
+                <span class="nome-autore"></span>
+            </a>
             <button class="btn btn-primary" 
                     type="button" 
                     data-toggle="collapse" 
