@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="card col-lg-12" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">
+                    <span class="oi oi-star not-starred"></span>
+                    {{post.title}}
+            </h5>
+            <p class="card-text">{{post.body}}</p>
+            <a href="#" class="btn" id="autore-{{post.id}}"><span class="oi oi-person"></span></a>
+            <button class="btn btn-primary" 
+                    type="button" 
+                    data-toggle="collapse" 
+                    data-target="#commenti-{{post.id}}" 
+                    aria-expanded="false" 
+                    aria-controls="commenti-{{post.id}}">
+                    <span class="oi oi-comment-square"></span> 
+                    Visualizza commenti 
+                    <span class="badge badge-light" 
+                          id="badge-commento-{{post.id}}">0</span>
+            </button>
+            <button class="btn btn-secondary float-lg-right" 
+                    type="button">
+                Nuovo commento
+                <span class="oi oi-plus"></span>
+            </button> 
+        </div>
+    </div>
+    <div class="collapse offset-lg-1 col-lg-10" id="commenti-{{post.id}}">
+
+    </div>
+</div>

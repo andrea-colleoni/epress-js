@@ -1,0 +1,17 @@
+body {
+    padding-top: 70px;
+}
+.card-title {
+    font-variant: small-caps;
+}
+.post-comment {
+    background-color: #eee;
+}
+.not-starred {
+    color: #eee;
+    font-size: 24px;
+}
+.starred {
+    color: darkorange;
+    font-size: 24px;
+}

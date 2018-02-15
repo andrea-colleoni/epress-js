@@ -1,0 +1,20 @@
+Approfondimenti JS
+- DOM Manipulation
+- Form validation
+- Ajax e utilizzo di Ajax con jQuery
+
+Strumenti avanzati di JS
+- JS closures
+- JS Storages
+- Functional JS
+	- filter()
+	- map()
+	- reduce()
+- JS Prototypes	
+- WebSockets
+
+Cenni introduttivi su SPA e AngularJS
+
+Esercitazione
+- Costruire un sito web completo con l'API di https://jsonplaceholder.typicode.com/
+
