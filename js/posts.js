@@ -6,24 +6,26 @@ var templCommento = '';
 
 // on document ready
 $(function() {  // closure
-    caricaPosts();
-    // punto 1.
-    $.ajax({
-        url: 'rigaPost.html',
-        method: 'get'
-    })
-    .done(function(respHtmlPost) {
-        templPost = respHtmlPost;
-        // punto 2
+    caricaNavbar(generaTuttiPost);
+    caricaPosts(function() {
+        // punto 1.
         $.ajax({
-            url: 'commentoPost.html',
+            url: 'rigaPost.html',
             method: 'get'
         })
-        .done(function(respHtmlCommento){
-            templCommento = respHtmlCommento;
-            generaTuttiILinkDiPaginazione();
-            generaTuttiPost();
-        });
+        .done(function(respHtmlPost) {
+            templPost = respHtmlPost;
+            // punto 2
+            $.ajax({
+                url: 'commentoPost.html',
+                method: 'get'
+            })
+            .done(function(respHtmlCommento){
+                templCommento = respHtmlCommento;
+                generaTuttiILinkDiPaginazione();
+                generaTuttiPost();
+            });
+        });        
     });
     $( "#postsContainer" ).on("click", "span.not-starred", function() {
         aggiungiBookmark( $( this ) );
@@ -37,13 +39,15 @@ $(function() {  // closure
     console.log('finito');
 });
 
-function caricaPosts() {
+function caricaPosts(callBack) {
     $.ajax({
         url: 'https://jsonplaceholder.typicode.com/posts',
         method: 'get'
     })
     .done(function(listaPosts) {
         posts = listaPosts;
+        if(callBack)
+            callBack();
     }); 
 }
 
@@ -53,10 +57,17 @@ function generaTuttiPost() {
     $('#postsContainer').empty();
     var inizio = pagina * elementiPerPagina;
     var fine = inizio + elementiPerPagina;
-    $.each(posts.slice(inizio, fine), function(ixPost, post) {
-        //console.log(post);
-        generaSingoloPost(post);
-    });
+    $.each(
+        posts
+        .filter(function(post) {
+            return  $('#searchTerms').val() == '' || 
+                    (post.body.indexOf($('#searchTerms').val().trim()) >= 0) ||
+                    (post.title.indexOf($('#searchTerms').val().trim()) >= 0);
+        })
+        .slice(inizio, fine), function(ixPost, post) {
+            //console.log(post);
+            generaSingoloPost(post);
+        });
 }
 
 function generaTuttiILinkDiPaginazione() {

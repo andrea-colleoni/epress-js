@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        var pari = [];
+        for(i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 === 0)
+                pari.push(arr[i]);
+        }
+        console.log(pari);
+        
+        var pari2 = arr.filter(function(elem) {
+            return elem % 2 === 0;
+        });
+        console.log(pari2);
+
+        // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        // =>
+        // ['1', '22', '333', '4444', ....]
+        arr = [2, 5, 4];
+        var risultato = arr.map(function(elemento, indice) {
+            // var r = '';
+            // for(i=0; i < elemento; i++) 
+            //     r += new String(elemento);
+            // return r;
+            return new String(elemento).repeat(elemento);
+        });
+        console.log(risultato);
+
+        var prodotti = [
+            {
+                nome: 'pasta',
+                qty: 5,
+                prezzo: 1.2
+            },{
+                nome: 'riso',
+                qty: 3,
+                prezzo: 0.8
+            },{
+                nome: 'mele',
+                qty: 10,
+                prezzo: 0.6
+            }
+        ];
+        var totale = prodotti.reduce(function(subTotale, elemento) {
+            return subTotale + (elemento.qty * elemento.prezzo);
+        }, 0);
+        console.log(totale);
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EPress JS - Utente</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/epress.css">
+  </head>
+
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="card col-7">
+                <div class="card-header" id="nome">
+                </div> 
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h6 class="card-title">Indirizzo</h6>
+                            <div id="indirizzo"></div>
+                            <hr>
+                            <h6 class="card-title">Azienda</h6>
+                            <div id="azienda"></div>
+                        </div>
+                        <div class="col-4" id="map" style="display: :none";>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-4 offset-1">
+                <div class="card-header">
+                    Argomenti correlati
+                </div> 
+                <div class="btn-group-vertical">
+                    <div class="btn btn-light">Posts <span class="badge badge-primary">4</span></div>
+                    <div class="btn btn-light">Albums <span class="badge badge-primary">4</span></div>
+                    <div class="btn btn-light">Todos <span class="badge badge-primary">4</span></div>
+                </div>
+            </div>  
+        </div>
+    </div> <!-- /container -->
+
+    <footer class="container">
+      <p>&copy; EPress 2017-2018</p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN8gIIhmS_8L5xDkTss-8EcIVo95A8OH0&callback=initMap" async defer></script>
+    
+    <script src="js/commons.js"></script>
+    <script src="js/utente.js"></script>
+  </body>
+</html>
