@@ -45,7 +45,17 @@ function caricaPosts(callBack) {
         method: 'get'
     })
     .done(function(listaPosts) {
-        posts = listaPosts;
+        posts = listaPosts.map(function(post) {
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/comments?postId=' + post.id,
+                method: 'get',
+                async: false
+            })
+            .done(function(commenti) {
+                post.comments = commenti;
+            });
+            return post;
+        });
         if(callBack)
             callBack();
     }); 
@@ -125,24 +135,18 @@ function impostaAutoreDelPost(post) {
     });
 }
 
-function commentiDelPost(postId) {
+function commentiDelPost(post) {
    // punto 3.2
-   $.ajax({
-    url: 'https://jsonplaceholder.typicode.com/comments?postId=' + postId,
-    method: 'get'
-    })
-    .done(function(listaCommenti) {
-        $('#badge-commento-' + postId).html(listaCommenti.length);
-        // punto 3.2.1
-        $.each(listaCommenti, function(ixCommento, comment) {
-            $('#commenti-' + postId).append(
-                templCommento
-                    .replace(/{{comment.name}}/g, comment.name)
-                    .replace(/{{comment.body}}/g, comment.body)
-                    .replace(/{{comment.email}}/g, comment.email)
-            );
-        });
-    }); 
+    $('#badge-commento-' + postId).html(listaCommenti.length);
+    // punto 3.2.1
+    $.each(listaCommenti, function(ixCommento, comment) {
+        $('#commenti-' + postId).append(
+            templCommento
+                .replace(/{{comment.name}}/g, comment.name)
+                .replace(/{{comment.body}}/g, comment.body)
+                .replace(/{{comment.email}}/g, comment.email)
+        );
+    });
 }
 
 /* giorno 2 */
